@@ -11,6 +11,7 @@ func TestFindPersonById(t *testing.T) {
 			Id:   0,
 			Name: "person 1",
 		},
+
 		basic.Person{
 			Id:   1,
 			Name: "person 2",
@@ -26,7 +27,7 @@ func TestFindPersonById(t *testing.T) {
 	}
 }
 
-func TestFindPersonByIdError(t *testing.T) {
+func TestFindPersonByIdNotFound(t *testing.T) {
 	people := basic.People{
 		basic.Person{
 			Id:   0,
@@ -37,8 +38,8 @@ func TestFindPersonByIdError(t *testing.T) {
 			Name: "person 2",
 		},
 	}
-	_, err := people.FindPersonById(2)
-	if err != basic.NotFoundPerson {
-		t.Errorf("Expected %v but get %v", basic.NotFoundPerson, err)
+	p, err := people.FindPersonById(2)
+	if err == nil {
+		t.Errorf("Expected %v but get %v", basic.NotFoundPerson, p)
 	}
 }
